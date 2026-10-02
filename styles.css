@@ -1,0 +1,328 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll due to animations */
+    background: linear-gradient(135deg, #f7f0f0 0%, #e0e0e0 100%); /* Subtle light gradient */
+}
+
+/* Font Imports (as per project setup, assuming they are linked in HTML head) */
+/* @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap'); */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: #4a4a4a;
+}
+
+p {
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+}
+
+/* Custom Utilities */
+.text-gradient {
+    background: linear-gradient(45deg, #c79a00, #ffeb3b); /* Gold-yellow gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+}
+
+/* Hero Section Styling */
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white; /* Default text color for hero */
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #3a1c71 0%, #d76d77 50%, #ffaf7b 100%); /* Deep, vibrant gradient */
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    /* Optional: subtle fixed background effect without images */
+    /* background-attachment: fixed; */
+}
+
+.hero-content {
+    z-index: 10;
+    max-width: 800px;
+    padding: 2rem;
+    position: relative;
+}
+
+.hero-section h1 {
+    font-size: 4.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    letter-spacing: 2px;
+    line-height: 1.1;
+    color: white; /* Ensure h1 in hero remains white */
+}
+
+.hero-section p.lead {
+    font-size: 1.6rem;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Subtle floating effect for hero content */
+.hero-content {
+    animation: subtleFloat 3s ease-in-out infinite alternate;
+}
+
+/* Message Section Styling */
+.message-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 1rem;
+    background: linear-gradient(135deg, #e0e0e0 0%, #f7f0f0 100%); /* Inverse gradient or a different subtle one */
+}
+
+.birthday-card {
+    background: rgba(255, 255, 255, 0.2); /* Glassmorphism background */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    padding: 3.5rem;
+    max-width: 900px;
+    margin: 2rem;
+    text-align: center;
+    color: #4a4a4a;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.birthday-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.25);
+}
+
+.birthday-card h2 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+    line-height: 1.2;
+}
+
+.birthday-card p {
+    font-size: 1.25rem;
+    margin-bottom: 1.5rem;
+    color: #555;
+}
+
+.birthday-card p:last-of-type {
+    margin-bottom: 2rem; /* More space before button */
+}
+
+/* Animated Greeting and Message text */
+.greeting-text {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInSlideUp 1s ease-out forwards;
+    animation-delay: 0.5s; /* Delay for greeting */
+}
+
+.personal-message-paragraph {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInSlideUp 1s ease-out forwards;
+    animation-delay: var(--delay-factor); /* Dynamic delay via JS */
+}
+
+/* Interactive Button Styling */
+.btn-confetti {
+    display: inline-flex; /* Use flex to align icon and text */
+    align-items: center;
+    gap: 0.5rem; /* Space between icon and text */
+    padding: 1rem 2.5rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(45deg, #ff6b6b, #ffa500); /* Warm, inviting gradient */
+    color: white;
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+    transition: all 0.3s ease-in-out;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-confetti:hover {
+    background: linear-gradient(45deg, #ffa500, #ff6b6b); /* Reverse gradient on hover */
+    box-shadow: 0 8px 25px rgba(255, 107, 107, 0.6);
+    transform: translateY(-3px) scale(1.02);
+}
+
+.btn-confetti:active {
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+/* Confetti Canvas Styling */
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicks to pass through */
+    z-index: 9999;
+}
+
+/* Custom Keyframe Animations */
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes subtleFloat {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* AOS (Animate On Scroll) library customizations */
+/* These are mostly handled by `data-aos` attributes in HTML,
+   but we can ensure smooth transitions and sensible defaults. */
+[data-aos] {
+    transition-property: opacity, transform;
+    transition-duration: 0.8s; /* Standard AOS transition duration */
+    transition-timing-function: cubic-bezier(0.2, 0.7, 0.4, 1);
+    opacity: 0;
+}
+
+[data-aos].aos-animate {
+    opacity: 1;
+    transform: translate(0) scale(1);
+}
+
+/* Specific AOS effects override/enhancement */
+[data-aos="fade-up"] {
+    transform: translateY(30px);
+}
+[data-aos="zoom-in"] {
+    transform: scale(0.8);
+}
+[data-aos="slide-right"] {
+    transform: translateX(-50px);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .hero-section h1 {
+        font-size: 3.5rem;
+    }
+
+    .hero-section p.lead {
+        font-size: 1.4rem;
+    }
+
+    .birthday-card {
+        padding: 2.5rem;
+    }
+
+    .birthday-card h2 {
+        font-size: 2.5rem;
+    }
+
+    .birthday-card p {
+        font-size: 1.1rem;
+    }
+
+    .btn-confetti {
+        font-size: 1.1rem;
+        padding: 0.8rem 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2.8rem;
+        letter-spacing: 1px;
+    }
+
+    .hero-section p.lead {
+        font-size: 1.2rem;
+    }
+
+    .hero-content {
+        padding: 1.5rem;
+    }
+
+    .birthday-card {
+        padding: 2rem;
+        margin: 1rem;
+    }
+
+    .birthday-card h2 {
+        font-size: 2rem;
+    }
+
+    .birthday-card p {
+        font-size: 1rem;
+    }
+
+    .btn-confetti {
+        font-size: 1rem;
+        padding: 0.7rem 1.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section h1 {
+        font-size: 2.2rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .hero-section p.lead {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .birthday-card {
+        padding: 1.5rem;
+        border-radius: 15px;
+    }
+
+    .birthday-card h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .birthday-card p {
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+    }
+
+    .btn-confetti {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.5rem;
+    }
+}
